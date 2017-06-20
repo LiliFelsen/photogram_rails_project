@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PhotogramRailsProject</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>PhotogramRailsProject</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
   <body>
+  <!-- nav bar -->
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if logged_in? %>
+          <li><%= link_to "Hello, #{current_user.username}" %></li>
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Log In", login_path %></li>
+          <li><%= link_to "Sign Up", signup_path %></li>
+        <% end %>
+  <!-- nav end -->
+
+    <div class="container"  role="main">
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
+
     <%= yield %>
   </body>
 </html>
