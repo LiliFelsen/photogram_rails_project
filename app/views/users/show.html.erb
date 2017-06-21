@@ -1,9 +1,9 @@
+<%= image_tag @user.avatar.url(:thumb) %>
 <h1><%= @user.username %>'s Page</h1>
 
 
 <%= link_to 'Add a new picture', new_picture_path %><br>
-<%= link_to 'Edit User', edit_user_path %><br>
-<%= link_to 'Go to homepage', root_path %><br><br>
+<%= link_to 'Edit Profile', edit_user_path %><br><br>
 
 <table>
   <tr>
@@ -12,7 +12,7 @@
   <tr>
     <td>
       <% @user.pictures.reverse_each do |pic| %>
-        <%= link_to image_tag(pic.image_url, width: "200"), picture_path(pic) %><br>
+        <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
       <% end %>
     </td>
   </tr>
@@ -20,8 +20,8 @@
 
 <br>
 
-<h3>Your comments:</h3>
+<h4>Your comments:</h4>
 <% @user.comments.each do |com| %>
 On picture <%= com.picture.title %>:
-<%= com.content %> <%= link_to "Delete comment", comment_path(com), method: :delete %> <br>
+<%= com.content %> <%= link_to "Delete comment", comment_path(com), method: :delete %> <%= link_to "See picture", picture_path(com.picture) %> <br>
 <% end %>

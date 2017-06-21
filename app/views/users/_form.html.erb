@@ -1,11 +1,42 @@
-<%= form_for @user do |f| %>
-<%= f.label :username %><br>
-<%= f.text_field :username %><br><br>
-<%= f.label :email %><br>
-<%= f.text_field :email %><br><br>
-<%= f.label :password %><br>
-<%= f.password_field :password %><br><br>
-<%= f.label :password_confirmation %><br>
-<%= f.password_field :password_confirmation %><br><br>
-<%= f.submit %>
+<%= form_for @user, html: { multipart: true} do |f| %>
+<% if @user.errors.any?  %>
+  <div id="error explanation">
+    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved.</h3>
+
+    <ul>
+      <% @user.errors.full_messages.each do |mess| %>
+      <li><%= mess %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= f.label :username %><br>
+  <%= f.text_field :username %><br><br>
+</div>
+
+<div class="field">
+  <%= f.label :profile_pic %><br>
+  <%= f.file_field :avatar %><br><br>
+</div>
+
+<div class="field">
+  <%= f.label :email %><br>
+  <%= f.text_field :email %><br><br>
+</div>
+
+<div class="field">
+  <%= f.label :password %><br>
+  <%= f.password_field :password %><br><br>
+</div>
+
+<div class="field">
+  <%= f.label :password_confirmation %><br>
+  <%= f.password_field :password_confirmation %><br><br>
+</div>
+
+<div class="action">
+  <%= f.submit %>
+</div>
 <% end %>

@@ -9,14 +9,18 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
   def create
     @picture = Picture.create(picture_params)
     @picture.user_id = current_user.id
+    if !params[:picture][:tag_ids].empty?
+      params[:picture][:tag_ids].each do |t|
+        if !t.empty?
+          @picture.tags << Tag.find(t)
+        end
+      end
+    end
+    if !params[:tag][:name].empty?
+      new_tag = Tag.find_or_create_by(name: params[:tag][:name].capitalize)
+      @picture.tags << new_tag
+    end
     if @picture.save
-      if !params[:picture][:tag_ids].empty?
-        params[:picture][:tag_ids].each {|t| PictureTag.create(tag_id: t, picture_id: @picture.id) }
-      end
-      if !params[:picture][:tag][:name].empty?
-        new_tag = Tag.find_or_create_by(name: params[:picture][:tag][:name].capitalize)
-        PictureTag.create(tag_id: new_tag.id, picture_id: @picture.id)
-      end
       redirect_to picture_path(@picture)
     else
       render 'new'
@@ -24,23 +28,15 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
+    @picture.tags.build
   end
 
   def update
-    @picture.update(picture_params)
-    @picture.user_id = current_user.id
-    if @picture.save
-      if !params[:picture][:tag_ids].empty?
-        params[:picture][:tag_ids].each {|t| PictureTag.create(tag_id: t, picture_id: @picture.id)}
-      end
-      if !params[:picture][:tag][:name].empty?
-        new_tag = Tag.find_or_create_by(name: params[:picture][:tag][:name].capitalize)
-        PictureTag.create(tag_id: new_tag.id, picture_id: @picture.id)
-      end
-      redirect_to picture_path(@picture)
-    else
-      render 'edit'
-    end
+    if @picture.update(picture_params)
+       redirect_to picture_path(@picture)
+     else
+       render 'edit'
+     end
   end
 
   def show
@@ -48,7 +44,7 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
   end
 
   def index
-    @pictures = Picture.all
+    @pictures = Picture.where.not(user_id: current_user.id)
   end
 
   def destroy
@@ -59,7 +55,7 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
   private
 
   def picture_params
-    params.require(:picture).permit(:title, :image_url)
+    params.require(:picture).permit(:image, :title, :tag, :tag_ids)
   end
 
   def set_picture

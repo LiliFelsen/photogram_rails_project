@@ -7,14 +7,14 @@
 
 
 <h2>Most Trending Tag:</h2>
-<li><%= Tag.trending %></li> 
+<li><%= Tag.trending %></li>
 
-<h2>All pictures of the app:</h2>
+<h2>Newsfeed:</h2>
 
 <table>
   <% @pictures.reverse_each do |pic|%>
   <tr>
-    <td><%= link_to image_tag(pic.image_url, width: "200"), picture_path(pic) %></td>
+    <td><%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %></td>
   </tr>
   <% end %>
 </table>

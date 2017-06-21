@@ -1,16 +1,22 @@
 <h1>Add a new picture:</h1>
 
-<%= form_tag pictures_path  %>
-<%= label_tag :title %><br>
-<%= text_field_tag 'picture[title]' %><br><br>
-<%= label_tag :image_url %><br>
-<%= text_field_tag 'picture[image_url]' %><br><br>
-<%= label_tag 'Select existing tag(s):' %><br>
-<% Tag.all.each do |tag| %>
-  <%= check_box_tag "picture[tag_ids][]", tag.id %>
-  <%= tag.name %><br>
+<%= form_for @picture, html: { multipart: true} do |f| %>
+
+  <%= f.label :title %><br>
+  <%= f.text_field :title %><br><br>
+
+  <%= f.label :image %><br>
+  <%= f.file_field :image %><br>
+
+  <%= f.label 'Select existing tag(s):' %><br>
+  <%= collection_check_boxes(:picture, :tag_ids, Tag.all, :id, :name) do |b| %>
+      <%= b.label { b.check_box + b.text } %><br>
+  <% end %><br>
+
+  <%= f.label "and/or create a new tag:" %><br>
+  <%= fields_for :tag do |t| %>
+    <%= t.text_field :name %><br>
+  <% end %><br>
+
+  <%= f.submit %>
 <% end %>
-<br>
-<%= label_tag 'and/or create a new tag:' %><br>
-<%= text_field_tag "picture[tag][name]" %><br><br>
-<%= submit_tag %>

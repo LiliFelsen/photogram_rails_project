@@ -2,10 +2,10 @@
 
 <% if @picture.user_id == current_user.id %>
 <%= link_to "Edit picture", edit_picture_path(@picture) %><br>
-<%= link_to "Delete picture", picture_path(@picture), method: :delete %> <br>
+<%= link_to "Delete picture", picture_path(@picture), method: :delete %> <br><br>
 <% end %>
 
-<%= image_tag @picture.image_url, width: "450" %><br>
+<%= image_tag @picture.image.url(:medium)%><br>
 
 <br><br>
 
@@ -25,7 +25,7 @@
   <% end %>
 <% end %>
 
-<br><br>
+<br>
 
 Add a new comment:<br>
 <%= form_for @comment do |f| %>
@@ -36,4 +36,4 @@ Add a new comment:<br>
 
 <br><br>
 
-<%= link_to "Back to profile", user_path(current_user) %>
+<%= link_to "Go to profile", user_path(current_user) %>

@@ -8,6 +8,10 @@ class User < ApplicationRecord
   validates_presence_of :username
   validates :username, uniqueness: :true
 
+  has_attached_file :avatar, styles: { :medium => "300x300#", :thumb => "100x100#" }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+
   def received_comments
     my_comments = []
     self.pictures.each do |picture|
