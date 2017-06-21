@@ -1,0 +1,9 @@
+<h1>All existing tags:</h1>
+
+<% @tags.each do |t| %>
+<%= link_to t.name, tag_path(t) %><br>
+<% end %>
+
+<br><br>
+
+<%= link_to 'Go to all pictures', pictures_path %>

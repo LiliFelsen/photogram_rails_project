@@ -42,18 +42,11 @@ lionel = User.create(
 end
 
 url = "http://www.defenders.org/sites/default/files/styles/large/public/dolphin-kristian-sekulic-isp.jpg"
-url2 = "https://goo.gl/images/qTRRIq"
 
 Picture.create(
   image_url: url,
   title: "Saw a dolphin!",
   user_id: User.first.id
-)
-
-Picture.create(
-  image_url: url2,
-  title: "Went to Paris",
-  user_id: User.last.id
 )
 
 PictureTag.create(picture_id: Picture.first.id, tag_id: Tag.first.id)

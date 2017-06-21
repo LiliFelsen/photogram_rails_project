@@ -1,10 +1,8 @@
-<h1>Add a new picture:</h1>
+<h1>Edit picture</h1>
 
 <%= form_tag pictures_path  %>
 <%= label_tag :title %><br>
 <%= text_field_tag 'picture[title]' %><br><br>
-<%= label_tag :image_url %><br>
-<%= text_field_tag 'picture[image_url]' %><br><br>
 <%= label_tag 'Select existing tag(s):' %><br>
 <% Tag.all.each do |tag| %>
   <%= check_box_tag "picture[tag_ids][]", tag.id %>
