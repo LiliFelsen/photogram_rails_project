@@ -1,5 +1,8 @@
 <h1><%= @picture.title %></h1>
-<p>added by <%= @picture.user.username %></p> 
+<div class="user-name">
+  <%= link_to @picture.user.username, user_path(@picture.user) %>
+</div>
+
 
 <% if @picture.user_id == current_user.id %>
 <%= link_to "Edit picture", edit_picture_path(@picture) %><br>

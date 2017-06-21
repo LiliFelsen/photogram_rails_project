@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 before_action :authenticated
 before_action :set_user, only: [:show, :edit, :update]
+before_action :owned_profile, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -27,6 +28,8 @@ before_action :set_user, only: [:show, :edit, :update]
       flash[:success] = "Your profile has been updated."
       redirect_to user_path(@user)
     else
+      @user.errors.full_messages
+      flash[:error] = @user.errors.full_messages
       render 'edit'
     end
   end
