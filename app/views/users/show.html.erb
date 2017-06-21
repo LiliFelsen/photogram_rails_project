@@ -1,9 +1,10 @@
-<%= image_tag @user.avatar.url(:thumb) %>
+<%= image_tag @user.avatar.url(:thumb), class: "img-circle" %>
 <h1><%= @user.username %>'s Page</h1>
 
-
+<% if @user == current_user  %>
 <%= link_to 'Add a new picture', new_picture_path %><br>
 <%= link_to 'Edit Profile', edit_user_path %><br><br>
+<% end %>
 
 <table>
   <tr>

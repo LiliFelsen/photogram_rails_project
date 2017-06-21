@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+before_action :authenticated
 before_action :set_user, only: [:show, :edit, :update]
 
   def new
@@ -23,7 +24,7 @@ before_action :set_user, only: [:show, :edit, :update]
 
   def update
     if @user.update(user_params)
-      flash[:notice] = "User has been updated."
+      flash[:success] = "Your profile has been updated."
       redirect_to user_path(@user)
     else
       render 'edit'
@@ -38,6 +39,14 @@ before_action :set_user, only: [:show, :edit, :update]
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def owned_profile
+    @user = User.find_by(username: params[:username])
+    unless current_user == @user
+      flash[:alert] = "That profile doesn't belong to you!"
+      redirect_to root_path
+    end
   end
 
 end

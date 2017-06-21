@@ -1,6 +1,7 @@
 class PicturesController < ApplicationController
 before_action :authenticated
 before_action :set_picture, only: [:show, :edit, :update, :destroy]
+before_action :owned_picture, only: [:edit, :update, :destroy]
 
   def new
     @picture = Picture.new
@@ -21,8 +22,10 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
       @picture.tags << new_tag
     end
     if @picture.save
+      flash[:success] = "Your picture has been created!"
       redirect_to picture_path(@picture)
     else
+      flash.now[:alert] = "Your new picture couldn't be created!  Please check the form."
       render 'new'
     end
   end
@@ -33,8 +36,10 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
   def update
     if @picture.update(picture_params)
+      flash[:success] = "Post updated."
        redirect_to picture_path(@picture)
      else
+       flash.now[:alert] = "Update failed.  Please check the form."
        render 'edit'
      end
   end
@@ -60,6 +65,13 @@ before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
   def set_picture
     @picture = Picture.find(params[:id])
+  end
+
+  def owned_picture
+    unless current_user == @picture.user
+      flash[:alert] = "Edit impossible. That picture doesn't belong to you!"
+      redirect_to root_path
+    end
   end
 
 end

@@ -1,4 +1,5 @@
 <h1><%= @picture.title %></h1>
+<p>added by <%= @picture.user.username %></p> 
 
 <% if @picture.user_id == current_user.id %>
 <%= link_to "Edit picture", edit_picture_path(@picture) %><br>
@@ -21,7 +22,15 @@
 <% if !@picture.comments.empty?  %>
   <%= "Picture comment(s):" %>
   <% @picture.comments.each do |com| %>
-    <li>"<%= com.content %>" by <%= com.user.username %></li>
+    <li>
+      "<%= com.content %>" by
+      <% if com.user == current_user  %>
+        <%= "You" %>
+        <%= link_to "Delete Comment", comment_path(com), method: :delete %>
+      <% else %>
+        <%= com.user.username %>
+      <% end %>
+    </li>
   <% end %>
 <% end %>
 
@@ -33,7 +42,3 @@ Add a new comment:<br>
 <%= f.hidden_field :picture_id, :value => @picture.id %>
 <%= f.submit %>
 <% end  %>
-
-<br><br>
-
-<%= link_to "Go to profile", user_path(current_user) %>
