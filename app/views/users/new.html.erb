@@ -20,7 +20,7 @@
             <%= f.text_field :email, placeholder: 'Email', input_html: { class: 'input-lg' } %><br>
             <%= f.password_field :password, placeholder: 'Password', input_html: { class: 'input-lg' } %><br>
             <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation', input_html: { class: 'input-lg' } %><br><br>
-            <%= f.label :profile_picture, input_html: { class: 'input-lg' } %><br>
+            <%= f.label "Your Profile Picture", input_html: { class: 'input-lg' } %><br>
             <center><%= f.file_field :avatar, input_html: { class: 'input-lg' } %></center><br>
             <%= f.submit "Sign up", class: 'btn-lg btn-info btn-block' %>
           </div>

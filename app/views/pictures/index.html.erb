@@ -1,26 +1,59 @@
-<div class="col-md-6">
-  <h3>Most Popular Tags:</h3>
-  <ol>
-    <% Tag.most_popular.each do |t|%>
-    <li><%= t %></li>
-    <% end %>
-  </ol>
-</div>
-
-<div class="col-md-6">
-  <h3>Most Trending Tag:</h3>
-  <li><%= Tag.trending %></li>
-</div>
-
-<div class="container-fluid">
-  <h2>Photosfeed:</h2>
-  <% @pictures.reverse_each do |pic|%>
-  <div class="row row-eq-height">
-    <div class=<%="col-md-4"%>>
-      <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %>
-      <p><%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
-      <%= pic.created_at.strftime("%B %e, %Y") %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Most Trending Tag:</h3>
+      <li><%= Tag.trending %></li>
+    </div>
+    <div class="col-md-6">
+      <h3>Most Popular Tags:</h3>
+      <ol>
+        <% Tag.most_popular.each do |t|%>
+        <li><%= t %></li>
+        <% end %>
+      </ol>
     </div>
   </div>
-    <% end %>
+
+  <div class="row">
+    <div class="container-fluid">
+      <h2>Photofeed:</h2>
+      <% @pictures.reverse_each do |pic|%>
+        <div class=<%="col-md-4"%>>
+          <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %>
+          <p><%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
+          <%= pic.created_at.strftime("%B %e, %Y") %></p>
+        </div>
+      </div>
+        <% end %>
+    </div>
+  </div>
 </div>
+
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="instagram-content">
+                    <h3>Latest Photos</h3>
+                    <div class="row photos-wrap">
+                    <!-- Instafeed target div -->
+                    <div id="instafeed"></div>
+                    <!-- The following HTML will be our template inside instafeed -->
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="photo-box">
+                            <div class="image-wrap">
+                                <img src="images/test_img.jpg">
+                                <div class="likes">309 Likes</div>
+                            </div>
+                            <div class="description">
+                                Fantastic Architecture #architecture #testing
+                                <div class="date">September 16, 2014</div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
