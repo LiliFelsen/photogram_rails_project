@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-before_action :authenticated
+before_action :logged_in?
 before_action :set_picture, only: [:show, :edit, :update, :destroy]
 before_action :owned_picture, only: [:edit, :update, :destroy]
 

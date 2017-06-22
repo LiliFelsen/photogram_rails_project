@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-before_action :authenticated
 before_action :set_user, only: [:show, :edit, :update]
-before_action :owned_profile, only: [:edit, :update]
+
 
   def new
     @user = User.new
@@ -11,7 +10,7 @@ before_action :owned_profile, only: [:edit, :update]
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      redirect_to profile_path(@user.username)
     else
       render 'new'
     end
@@ -42,14 +41,6 @@ before_action :owned_profile, only: [:edit, :update]
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def owned_profile
-    @user = User.find_by(username: params[:username])
-    unless current_user == @user
-      flash[:alert] = "That profile doesn't belong to you!"
-      redirect_to root_path
-    end
   end
 
 end

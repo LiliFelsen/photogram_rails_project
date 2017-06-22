@@ -1,3 +1,4 @@
+
 <h2>Most Popular Tags:</h2>
 <ol>
   <% Tag.most_popular.each do |t|%>
@@ -9,15 +10,16 @@
 <h2>Most Trending Tag:</h2>
 <li><%= Tag.trending %></li>
 
-<h2>Newsfeed:</h2>
+<h2>Photosfeed:</h2>
 
-<table>
+<div class="container-fluid">
   <% @pictures.reverse_each do |pic|%>
-  <tr>
-    <td><%= link_to pic.user.username, user_path(pic.user) %></td>
-  </tr>
-  <tr>
-    <td><%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %></td>
-  </tr>
-  <% end %>
-</table>
+  <div class="row row-eq-height">
+    <div class=<%="col-md-4"%>>
+      <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %>
+      <p><%= link_to pic.user.username, profile_path(pic.user.username) %>: <%= pic.title %><br>
+      <%= pic.created_at.strftime("%B %e, %Y") %></p>
+    </div>
+  </div>
+    <% end %>
+</div>

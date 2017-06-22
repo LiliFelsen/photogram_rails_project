@@ -1,0 +1,41 @@
+<div class="posts-wrapper">
+  <div class="row profile-header">
+    <div class="col-md-6">
+      <div class="img-circle">
+        <% if @user.avatar.exists? %>
+           <%= image_tag @user.avatar.url(:medium), id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+        <% else %>
+          <%=  image_tag 'default-avatar.png', id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="user-name-and-follow">
+        <h3 class="profile-user-name">
+          <%= @user.username %>
+        </h3>
+        <div class="user-statistics">
+          <table>
+            <th style="width:80px"><%= pluralize @user.followers.count, 'follower' %></th>
+            <th style="width:80px"><%= @user.following.count %> following</th>
+            <th style="width:80px"><%= pluralize @user.pictures.count, 'picture' %></th>
+          </table>
+        </div>
+        <span>
+          <% if @user == current_user %>
+            <div><%= link_to 'Add a new picture', new_picture_path, class: 'btn btn-primary' %></div>
+            <div><%= link_to 'Edit Profile', edit_profile_path(@user.username), class: 'btn edit-button' %></div>
+          <% elsif current_user_is_following(current_user.id, @user.id)  %>
+            <div><%= link_to 'Following', unfollow_user_path, remote: true, class: 'btn unfollow-button', id: 'unfollow-button', method: :post%></div>
+          <% else %>
+            <div><%= link_to 'Follow', follow_user_path, remote: true, class: 'btn follow-button', id: 'follow-button', method: :post %></div>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% @pictures.each do |pic| %>
+  <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
+<% end %>
