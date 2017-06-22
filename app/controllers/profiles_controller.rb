@@ -35,7 +35,7 @@ before_action :owned_profile, only: [:edit, :update]
     @user = User.find_by(username: params[:username])
     unless current_user == @user
       flash[:alert] = "That profile doesn't belong to you!"
-      redirect_to root_path
+      redirect_to pictures_path
     end
   end
 

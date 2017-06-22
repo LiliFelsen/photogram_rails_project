@@ -70,7 +70,7 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
   def owned_picture
     unless current_user == @picture.user
       flash[:alert] = "Edit impossible. That picture doesn't belong to you!"
-      redirect_to root_path
+      redirect_to pictures_path
     end
   end
 
