@@ -35,9 +35,13 @@
 <div class="container-fluid">
   <div class="user-pictures">
     <% if current_user == @user %>
-      <h4>Your Pictures</h4>
+      <% if !@user.pictures.empty? %>
+        <h4>Your Pictures</h4>
+      <% end %>
     <% else %>
-      <h4><%= @user.username %>'s Pictures</h4>
+      <% if !@user.pictures.empty? %>
+        <h4><%= @user.username %>'s Pictures</h4>
+      <% end %>
     <% end %>
       <% @user.pictures.reverse_each do |pic| %>
       <div class="col-md-4">
@@ -53,9 +57,13 @@
 <div class="container-fluid">
   <div class="user-comments">
     <% if current_user == @user %>
-      <h4>Your Comments</h4>
+      <% if !@user.comments.empty? %>
+        <h4>Your Comments</h4>
+      <% end  %>
     <% else %>
-      <h4><%= @user.username %>'s Comments</h4>
+      <% if !@user.comments.empty? %>
+        <h4><%= @user.username %>'s Comments</h4>
+      <% end %>
     <% end %>
     <% @user.comments.each do |com| %>
     <b>On <%= com.picture.title %>:</b>

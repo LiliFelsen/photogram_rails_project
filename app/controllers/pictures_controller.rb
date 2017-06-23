@@ -39,7 +39,7 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
       flash[:success] = "Picture updated."
        redirect_to picture_path(@picture)
      else
-       flash.now[:alert] = "Update failed.  Please check the form."
+       flash.now[:alert] = "Update failed. Please check the form."
        render 'edit'
      end
   end
