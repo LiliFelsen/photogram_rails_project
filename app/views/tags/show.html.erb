@@ -3,7 +3,7 @@
 <p> This tag was used <%= @tag.picture_tags.count  %> time(s).</p>
 
 <% @tag.pictures.each do |pic| %>
-<%= link_to image_tag(pic.image_url, width: "200"), picture_path(pic)  %>
+<%= link_to image_tag(pic.image.url(:medium)), picture_path(pic)  %>
 <% end %>
 
 <br><br>

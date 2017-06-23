@@ -36,7 +36,7 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
 
   def update
     if @picture.update(picture_params)
-      flash[:success] = "Post updated."
+      flash[:success] = "Picture updated."
        redirect_to picture_path(@picture)
      else
        flash.now[:alert] = "Update failed.  Please check the form."
@@ -70,7 +70,7 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
   def owned_picture
     unless current_user == @picture.user
       flash[:alert] = "Edit impossible. That picture doesn't belong to you!"
-      redirect_to root_path
+      redirect_to pictures_path
     end
   end
 

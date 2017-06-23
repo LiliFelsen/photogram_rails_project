@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'relationships/unfollow_user'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-root 'pictures#index'
+root 'sessions#new'
 
 get '/signup', to: 'users#new', as: 'signup'
 resources :users do
@@ -22,10 +22,8 @@ resources :pictures
 resources :tags
 resources :comments
 
-post ':user_name/follow_user', to: 'relationships#follow_user', as: :follow_user
-post ':user_name/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
+post 'users/:id/follow_user', to: 'relationships#follow_user', as: :follow_user
+post 'users/:id/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
 
-get ':username', to: 'profiles#show', as: :profile
-get ':username/edit', to: 'profiles#edit', as: :edit_profile  
 
 end

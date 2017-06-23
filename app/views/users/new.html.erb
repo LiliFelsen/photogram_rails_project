@@ -1,4 +1,31 @@
-<h1>Welcome to PhotoGram!</h1>
-<h2>Please sign up:</h2>
-
-<%= render 'form' %>
+<div class="registration-bg">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="log-in panel">
+        <div class="panel-heading">
+          <h2>Join PhotoGram</h2>
+        </div>
+        <%= form_for @user, html: { multipart: true} do |f| %>
+          <div class="panel-body">
+            <% if @user.errors.any? %>
+            <div class="error_explanation">
+              <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+            <% end %>
+            <%= f.text_field :username, placeholder: 'Username', input_html: { class: 'input-lg' } %><br>
+            <%= f.text_field :email, placeholder: 'Email', input_html: { class: 'input-lg' } %><br>
+            <%= f.password_field :password, placeholder: 'Password', input_html: { class: 'input-lg' } %><br>
+            <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation', input_html: { class: 'input-lg' } %><br><br>
+            <%= f.label "Your Profile Picture", input_html: { class: 'input-lg' } %><br>
+            <center><%= f.file_field :avatar, input_html: { class: 'input-lg' } %></center><br>
+            <%= f.submit "Sign up", class: 'btn-lg btn-info btn-block' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
