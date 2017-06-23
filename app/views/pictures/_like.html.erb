@@ -1,4 +1,10 @@
-<%= link_to '', like_picture_path(@picture.id), remote: true, id: "like_#{@picture.id}", class: "glyphicon #{liked_picture @picture}" %>
+<div class="like-button">
+  <% if current_user.liked? @picture %>
+     <%= link_to '', unlike_picture_path(@picture.id), id: "unlike_#{@picture.id}", class: "like glyphicon #{liked_picture @picture}" %>
+   <% else %>
+     <%= link_to '', like_picture_path(@picture.id), id: "like_#{@picture.id}", class: "like glyphicon #{liked_picture @picture}" %>
+   <% end %>
+</div>
 
 <div class="likes" id="likes_<%= picture.id %>">
   <%= display_likes picture %>

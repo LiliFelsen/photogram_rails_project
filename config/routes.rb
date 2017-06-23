@@ -21,6 +21,7 @@ resources :sessions
 resources :pictures do
   member do
     get 'like'
+    get 'unlike'
   end
 end
 

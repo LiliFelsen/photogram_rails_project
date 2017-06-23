@@ -140,6 +140,16 @@ html {
   margin-bottom: 7px;
 }
 
-.user-name {
+.user-name-and-follow {
   display: inline;
+}
+
+.like {
+  text-decoration: none;
+  color: red;
+}
+
+.like-button a:hover, a:focus {
+  text-decoration: none;
+  color: red;
 }
