@@ -21,6 +21,9 @@
         <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
         <%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
         <%= pic.created_at.strftime("%B %e, %Y") %>
+        <div class="like-button">
+        <%= link_to '', like_picture_path(pic.id), id: "like_#{pic.id}", class: "like glyphicon #{liked_picture pic}" %>
+        </div>
         <br><br>
       </div>
     <% end %>

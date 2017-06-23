@@ -60,7 +60,7 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
   def like
     if @picture.liked_by current_user
       respond_to do |format|
-        format.html { redirect_to :back }
+        format.html { redirect_to picture_path(@picture) }
         format.js
       end
     end
