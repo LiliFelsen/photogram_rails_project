@@ -37,7 +37,9 @@
         <% end %>
       <% end %>
       </div>
-      <br><br>
+      <br>
+      <%= render 'like', picture: @picture %>
+      <br>
         Add a new comment:<br>
         <%= form_for @comment do |f| %>
           <%= f.text_area :content %><br>

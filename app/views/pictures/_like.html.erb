@@ -1,0 +1,5 @@
+<%= link_to '', like_picture_path(@picture.id), remote: true, id: "like_#{@picture.id}", class: "glyphicon #{liked_picture @picture}" %>
+
+<div class="likes" id="likes_<%= picture.id %>">
+  <%= display_likes picture %>
+</div>

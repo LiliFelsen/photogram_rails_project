@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_voter
+
   has_secure_password
   has_many :comments
   has_many :pictures, dependent: :destroy
