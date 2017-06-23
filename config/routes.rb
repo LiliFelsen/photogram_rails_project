@@ -31,5 +31,6 @@ resources :comments
 post 'users/:id/follow_user', to: 'relationships#follow_user', as: :follow_user
 post 'users/:id/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
 
+get '/searchs', to: 'search#index', as: :searchs
 
 end

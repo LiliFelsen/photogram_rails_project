@@ -22,7 +22,11 @@
         <%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
         <%= pic.created_at.strftime("%B %e, %Y") %>
         <div class="like-button">
-        <%= link_to '', like_picture_path(pic.id), id: "like_#{pic.id}", class: "like glyphicon #{liked_picture pic}" %>
+          <% if current_user.liked? pic %>
+             <%= link_to '', unlike_picture_path(pic.id), id: "unlike_#{pic.id}", class: "like glyphicon #{liked_picture pic}" %>
+           <% else %>
+             <%= link_to '', like_picture_path(pic.id), id: "like_#{pic.id}", class: "like glyphicon #{liked_picture pic}" %>
+           <% end %>
         </div>
         <br><br>
       </div>

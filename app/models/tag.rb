@@ -17,4 +17,8 @@ class Tag < ApplicationRecord
     tags.group_by(&:itself).values.max_by(&:size).first
   end
 
+  def self.search(search)
+    where("name LIKE ?", "%#{search}%") 
+  end
+
 end
