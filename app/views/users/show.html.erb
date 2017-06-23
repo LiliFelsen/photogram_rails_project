@@ -1,53 +1,73 @@
 
+<div class="row">
+  <div class="col-md-6">
+    <div class="img-circle">
+      <% if @user.avatar.exists? %>
+         <%= image_tag @user.avatar.url(:medium), id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+      <% else %>
+        <%=  image_tag 'default-avatar.png', id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="user-name-and-follow">
+        <h2><%= @user.username %></h2>
+        <% if @user == current_user %>
+          <div><%= link_to 'Add a new picture', new_picture_path, class: 'btn btn-primary' %></div>
+          <div><%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn edit-button' %></div>
+        <% elsif current_user_is_following(current_user.id, @user.id)  %>
+          <div><%= link_to 'Following', unfollow_user_path, class: 'btn unfollow-button', id: 'unfollow-button', method: :post%></div>
+        <% else %>
+          <div><%= link_to 'Follow', follow_user_path, class: 'btn follow-button', id: 'follow-button', method: :post %></div>
+        <% end %>
+        <br>
+        <table>
+          <th style="width:80px"><%= pluralize @user.followers.count, 'follower' %></th>
+          <th style="width:80px"><%= @user.following.count %> following</th>
+          <th style="width:80px"><%= pluralize @user.pictures.count, 'picture' %></th>
+        </table>
+      </div>
+    </div>
+</div>
 
-<div class="col-md-6">
-  <div class="img-circle">
-    <% if @user.avatar.exists? %>
-       <%= image_tag @user.avatar.url(:medium), id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+<br><br>
+
+<div class="container-fluid">
+  <div class="user-pictures">
+    <% if current_user == @user %>
+      <h4>Your Pictures</h4>
     <% else %>
-      <%=  image_tag 'default-avatar.png', id: 'image-preview', class: 'img-responsive img-circle profile-image' %>
+      <h4><%= @user.username %>'s Pictures</h4>
+    <% end %>
+      <% @user.pictures.reverse_each do |pic| %>
+      <div class="col-md-4">
+        <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
+        <br>
+      </div>
+      <% end %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container-fluid">
+  <div class="user-comments">
+    <% if current_user == @user %>
+      <h4>Your Comments</h4>
+    <% else %>
+      <h4><%= @user.username %>'s Comments</h4>
+    <% end %>
+    <% @user.comments.each do |com| %>
+    On <%= com.picture.title %>:
+    <%= com.content %>
+      <% if @user == current_user %>
+        <%= link_to "Delete comment", comment_path(com), method: :delete %>
+        <%= link_to "See picture", picture_path(com.picture) %> <br>
+       <% else %>
+        <%= link_to "See picture", picture_path(com.picture) %> <br>
+      <% end  %>
     <% end %>
   </div>
 </div>
-<div class="col-md-6">
-  <div class="user-name-and-follow">
-      <h2><%= @user.username %></h2>
-      <% if @user == current_user %>
-        <div><%= link_to 'Add a new picture', new_picture_path, class: 'btn btn-primary' %></div>
-        <div><%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn edit-button' %></div>
-      <% elsif current_user_is_following(current_user.id, @user.id)  %>
-        <div><%= link_to 'Following', unfollow_user_path, class: 'btn unfollow-button', id: 'unfollow-button', method: :post%></div>
-      <% else %>
-        <div><%= link_to 'Follow', follow_user_path, class: 'btn follow-button', id: 'follow-button', method: :post %></div>
-      <% end %>
-      <br>
-      <table>
-        <th style="width:80px"><%= pluralize @user.followers.count, 'follower' %></th>
-        <th style="width:80px"><%= @user.following.count %> following</th>
-        <th style="width:80px"><%= pluralize @user.pictures.count, 'picture' %></th>
-      </table>
-    </div>
-  </div>
 
-<div class="user-pictures">
-  <table>
-    <tr>
-      <th>Your pictures:</th>
-    </tr>
-    <tr>
-      <td>
-        <% @user.pictures.reverse_each do |pic| %>
-          <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<div class="user-comments">
-  <h4>Your comments:</h4>
-  <% @user.comments.each do |com| %>
-  On picture <%= com.picture.title %>:
-  <%= com.content %> <%= link_to "Delete comment", comment_path(com), method: :delete %> <%= link_to "See picture", picture_path(com.picture) %> <br>
-  <% end %>
-</div>
+<br><br>
