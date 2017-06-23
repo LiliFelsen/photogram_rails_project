@@ -38,6 +38,13 @@
             <li><%= link_to "Sign Up", signup_path %></li>
           <% end %>
         </ul>
+
+        <div class="navbar-form pull-right">
+          <%= form_tag(searchs_path, :method => "get", id: "search-form") do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search by tags" %>
+            <%= submit_tag "Search", :name => nil %>
+          <% end %>
+        </div>
       </div>
     </nav>
 

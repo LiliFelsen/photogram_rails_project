@@ -58,10 +58,11 @@
       <h4><%= @user.username %>'s Comments</h4>
     <% end %>
     <% @user.comments.each do |com| %>
-    On <%= com.picture.title %>:
+    <b>On <%= com.picture.title %>:</b>
     <%= com.content %>
       <% if @user == current_user %>
         <%= link_to "Delete comment", comment_path(com), method: :delete %>
+        /
         <%= link_to "See picture", picture_path(com.picture) %> <br>
        <% else %>
         <%= link_to "See picture", picture_path(com.picture) %> <br>

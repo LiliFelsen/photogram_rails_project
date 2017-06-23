@@ -1,0 +1,26 @@
+
+
+<div class="container">
+
+     <!-- Page Header -->
+      <div class="row">
+          <div class="col-lg-12">
+              <% if @tags.empty? %>
+              <h2 align="center" class="page-header">Results not found for: <%= @search %></h2>
+              <% else %>
+              <h2 align="center" class="page-header">Search Results for: <%= @search %></h2>
+          </div>
+      </div>
+      <!-- /.row -->
+
+     <!-- Projects Row -->
+      <% @tags.each do |tag| %>
+      <% tag.pictures.each do |picture| %>
+          <div class="col-md-4">
+            <%= link_to image_tag(picture.image.url(:medium)), picture_path(picture), class:"img-responsive" %><br>
+          </div>
+        <% end %>
+    <% end %>
+  <% end %>
+
+</div>
