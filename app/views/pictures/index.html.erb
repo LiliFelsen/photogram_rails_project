@@ -1,28 +1,28 @@
-  <div class="row">
-    <div class="col-md-6">
-      <h3>Most Trending Tag:</h3>
-      <li><%= Tag.trending %></li>
-    </div>
-    <div class="col-md-6">
-      <h3>Most Popular Tags:</h3>
-      <ol>
-        <% Tag.most_popular.each do |t|%>
-        <li><%= t %></li>
-        <% end %>
-      </ol>
-    </div>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Most Trending Tag:</h3>
+    <li><%= Tag.trending %></li>
   </div>
+  <div class="col-md-6">
+    <h3>Most Popular Tags:</h3>
+    <ol>
+      <% Tag.most_popular.each do |t|%>
+      <li><%= t %></li>
+      <% end %>
+    </ol>
+  </div>
+</div>
 
-  <div class="container-fluid">
-    <div class="pictures">
-      <h2>Photofeed:</h2>
-        <% @pictures.reverse_each do |pic|%>
-          <div class="col-md-4">
-            <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
-            <%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
-            <%= pic.created_at.strftime("%B %e, %Y") %>
-            <br><br>
-          </div>
-          <% end %>
-    </div>
+<div class="container-fluid">
+  <div class="pictures">
+    <h2>Photofeed:</h2>
+    <% @pictures.reverse_each do |pic|%>
+      <div class="col-md-4">
+        <%= link_to image_tag(pic.image.url(:medium)), picture_path(pic) %><br>
+        <%= link_to pic.user.username, user_path(pic.user) %>: <%= pic.title %><br>
+        <%= pic.created_at.strftime("%B %e, %Y") %>
+        <br><br>
+      </div>
+    <% end %>
   </div>
+</div>

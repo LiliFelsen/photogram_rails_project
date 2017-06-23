@@ -1,6 +1,6 @@
 class PicturesController < ApplicationController
 before_action :logged_in?
-before_action :set_picture, only: [:show, :edit, :update, :destroy]
+before_action :set_picture, only: [:show, :edit, :update, :destroy, :like]
 before_action :owned_picture, only: [:edit, :update, :destroy]
 
   def new
@@ -55,6 +55,15 @@ before_action :owned_picture, only: [:edit, :update, :destroy]
   def destroy
     @picture.destroy
     redirect_to user_path(current_user)
+  end
+
+  def like
+    if @picture.liked_by current_user
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    end
   end
 
   private
