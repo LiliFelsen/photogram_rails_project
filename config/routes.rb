@@ -18,6 +18,7 @@ get '/login', to: 'sessions#new', as: 'login'
 delete '/logout', to: 'sessions#destroy', as: 'logout'
 resources :sessions
 
+post '/pictures/:id/edit', to: "pictures#update"
 resources :pictures do
   member do
     get 'like'

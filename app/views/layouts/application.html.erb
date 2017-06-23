@@ -40,9 +40,11 @@
         </ul>
 
         <div class="navbar-form pull-right">
+          <% if logged_in? %>
           <%= form_tag(searchs_path, :method => "get", id: "search-form") do %>
             <%= text_field_tag :search, params[:search], placeholder: "Search by tags" %>
             <%= submit_tag "Search", :name => nil %>
+          <% end %>
           <% end %>
         </div>
       </div>

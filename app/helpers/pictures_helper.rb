@@ -2,7 +2,7 @@ module PicturesHelper
 
   def display_likes(picture)
     votes = picture.votes_for.up
-    return list_likers(votes) if votes.size <= 8
+    return list_likers(votes) if votes.size <= 5
     count_likers(votes)
   end
 
